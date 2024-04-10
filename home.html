@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <script src="server.js"></script> -->
+    <style type="text/css">
+        @layer utilities {
+          .content-auto {
+            content-visibility: auto;
+          }
+        }
+    </style>
+
+    
+</head>
+<body>
+    <div>
+            <nav class="px-16 py-4 shadow-sm flex">
+                <div class="container mx-auto flex justify-between items-center">
+                  <div class="brand text-blue-500 text-3xl ">Shortmeet</div>
+                  <div class="lg:hidden">
+                    <button onclick="toggleNavbar()" class="text-gray-600 hover:text-gray-200 focus:outline-none focus:text-gray-200">
+                      <svg class="w-6 h-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path id="menu-icon" fill-rule="evenodd" clip-rule="evenodd" d="M19 13H5v-2h14v2z"></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div id="menu" class="lg:flex hidden">
+                  <ul class="lg:flex space-x-4">
+                    <li><a href="/" class="text-gray-500 leading-7 transition duration-300 ease-in-out">About us</a></li>
+                    <li><a href="#"><img src="images/help-circle.svg" class="navimg" alt="" width="30" height="30"></a></li>
+                    <!--settings--><li><a href="#" onclick="openModal()"><img src="images/settings-1.svg" class="navimg" alt="" width="30" height="30"></a></li>
+                  </ul>
+                </div>
+              </nav>
+            
+        <!-- </div> -->
+        <div class="relative max-w-5xl mx-auto pt-20 px-4 sm:pt-24 lg:pt-32">
+            <p class='text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-center dark:text-white'>Short video meeting rooms now easier. Now free for everyone.</p>
+            <p class='mt-6 text-lg text-slate-600 px-3 text-center max-w-3xl mx-auto dark:text-slate-400'>We re-developed the service we built for secure short and efficient meetings, shortmeet, to make it free and available for all.</p>
+            <div class="my-8">
+                <div class="max-w-lg mx-auto grid grid-cols-2 gap-3">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white outline-0 py-2 px-4 rounded-full flex items-center justify-center ease-in-out" id="newRoomBtn">
+                        <img class="icon" src="images/plus-circle.svg" alt="" width="23" height="23" />
+                        <span class="ml-2">New Room</span>
+                    </button>
+                    <button class="hover:bg-blue-500 hover:text-white outline-0 text-blue-500 border border-blue-500 py-2 px-4 flex items-center justify-center rounded-full ease-in-out" id="joinRoomBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" class="feather svg-icon feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                        <span class="ml-2">Join room with code</span>
+                    </button>
+                </div>
+            </div>
+            <p class='text-center my-10 text-gray-500'>All copyrights reserved @shortmeet 2023 </p>
+        </div>
+    </div>
+    <div id="newRoomModal" class="modal hidden fixed z-10 inset-0 overflow-y-auto">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <!-- Modal Background -->
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <!-- Modal Panel -->
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <!-- Modal Content -->
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                                Create New Room
+                            </h3>
+                            <div class="mt-2">
+                                <!-- Form for creating a new room -->
+                                <form id="newRoomForm" class="grid grid-cols-1 gap-y-2">
+                                    <!-- Room ID -->
+                                    <div class="col-span-4 mt-4">
+                                        <label for="roomId" class="block text-sm font-medium text-gray-700">Room ID</label>
+                                        <input type="text" id="roomId" name="roomId" autocomplete="roomId" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                    </div>
+                                    <!-- Host Name -->
+                                    <div class="col-span-4 mt-4">
+                                        <label for="hostName" class="block text-sm font-medium text-gray-700">Host Name</label>
+                                        <input type="text" id="hostName" name="hostName" autocomplete="hostName" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                    </div>
+                                    <!-- Password -->
+                                    <div class="col-span-4 mt-4">
+                                        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                                        <input type="password" id="password" name="password" autocomplete="current-password" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                    </div>
+                                    <div class="col-span-4 mt-4">
+                                        <label for="confirmpassword" class="block text-sm font-medium text-gray-700">Password</label>
+                                        <input type="password" id="confirmpassword" name="confirmpassword" autocomplete="current-password" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                    </div>
+                                </form>
+                                <!-- Error message -->
+                                <div id="errorMsg" class="mt-3 text-red-600"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Footer -->
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" id="createRoomBtn" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                        Create Room
+                    </button>
+                    <button type="button" id="modalCloseBtn" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="joinRoomModal" class="modal hidden fixed z-10 inset-0 overflow-y-auto">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <!-- Modal Background -->
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <!-- Modal Panel -->
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <!-- Modal Content -->
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                                Join Room with Code
+                            </h3>
+                            <div class="mt-2">
+                                <!-- Form for joining a room -->
+                                <form  id="joinRoomForm" class="grid grid-cols-1 gap-y-2">
+                                    <!-- Room ID -->
+                                    <div class="col-span-4 mt-4">
+                                        <label for="roomId" class="block text-sm font-medium text-gray-700">Room ID</label>
+                                        <input type="text" id="jroomId" name="jroomId" autocomplete="roomId" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                    </div>
+                                    <!-- Name -->
+                                    <div class="col-span-4 mt-4">
+                                        <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                                        <input type="text" id="jname" name="name" autocomplete="name" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                    </div>
+                                    <!-- Password -->
+                                    <div class="col-span-4 mt-4">
+                                        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                                        <input type="password" id="jpassword" name="jpassword" autocomplete="current-password" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                    </div>
+                                </form>
+                                <!-- Error message -->
+                                <div id="errorMsg" class="mt-3 text-red-600"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Footer -->
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" id="joinBtn" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                        Join Room
+                    </button>
+                    <button type="button" id="modalCloseBtn" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const newRoomBtn = document.getElementById('newRoomBtn');
+            const joinRoomBtn = document.getElementById('joinRoomBtn');
+            const newRoomModal = document.getElementById('newRoomModal');
+            const joinRoomModal = document.getElementById('joinRoomModal');
+            const createRoomBtn = document.getElementById('createRoomBtn');
+
+            newRoomBtn.addEventListener('click', () => {
+                openModal('newRoom');
+            });
+
+            joinRoomBtn.addEventListener('click', () => {
+                openModal('joinRoom');
+            });
+
+            function openModal(modalType) {
+                if (modalType === 'newRoom') {
+                    newRoomModal.classList.remove('hidden');
+                } else if (modalType === 'joinRoom') {
+                    joinRoomModal.classList.remove('hidden');
+                }
+            }
+
+            
+
+        const closeModalBtns = document.querySelectorAll('#modalCloseBtn');
+            closeModalBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const modal = btn.closest('.modal');
+                    modal.classList.add('hidden');
+                });
+            });
+        });
+        createRoomBtn.onclick = async function() {
+            // Get form data
+            var formData = {
+                roomId: document.getElementById("roomId").value,
+                hostName: document.getElementById("hostName").value,
+                password: document.getElementById("password").value,
+                confirmPassword: document.getElementById("confirmpassword").value
+            };
+
+            // Validation
+            if (formData.roomId.length > 0 && formData.hostName.length > 0 && formData.password.length > 0) {
+                if (formData.password === formData.confirmPassword) {
+                    // Proceed with room creation (navigate or perform further actions)
+                    newRoomModal.classList.add('hidden');
+                    try {     
+                        const response = await fetch('https://short-meet-server.onrender.com/createRoom', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json' // Adjust the Content-Type header if necessary
+                            },
+                            body: JSON.stringify(formData) // Con
+                        });
+                        console.log('Completed!', response);
+                        if(response==null){
+                            alert("Room Already Exists");
+                            window.location.reload();
+                        }
+                        console.log("Sample",formData)
+                    
+                        sessionStorage.setItem('display_name',formData.hostName)
+                        // let inviteCode = formData.roomId;
+                        // if(!inviteCode){
+                        //     inviteCode = String(Math.floor(Math.random()*10000))
+                        // }
+                        alert("Room created successfully!");
+                        window.location = `room.html?room=${formData.roomId}`
+
+                    } catch(err) {
+                        alert("Room Already Exists");
+                        console.error(`Error: ${err}`);
+                    }
+                    
+                } else {
+                    errorMsg.innerHTML = "Passwords do not match.";
+                }
+
+            } else {
+                errorMsg.innerHTML = "All fields are required.";
+            }
+        }
+
+        joinBtn.onclick = async function() {
+            
+            const roomId = document.getElementById('jroomId').value;
+            const password = document.getElementById('jpassword').value;
+            const hostName = document.getElementById("jname").value;
+            console.log("Room",roomId, password)
+            try {     
+                const response = await fetch(`https://short-meet-server.onrender.com/room?roomId=${roomId}&password=${password}`, {
+                    method: 'get',
+                    headers: {
+                        'Content-Type': 'application/json' // Adjust the Content-Type header if necessary
+                    },
+                });
+                console.log("Response",response);
+                if(response!=null){
+                    sessionStorage.setItem('display_name',hostName)
+                    let inviteCode = roomId;
+                    if(!inviteCode){
+                        inviteCode = String(Math.floor(Math.random()*10000))
+                    }
+                    alert("Room created successfully!");
+                    window.location = `room.html?room=${inviteCode}`
+                    console.log('Completed!', response);
+                }else{
+                    alert("Invalid RoomId or Password")
+                }
+            } catch(err) {
+                console.error(`Error: ${err}`);
+            }
+
+        }
+
+        function toggleNavbar() {
+            const menu = document.getElementById('menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex-col', 'gap-y-2', 'text-center');
+        }
+    </script>
+</body>
+</html>

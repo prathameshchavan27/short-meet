@@ -72,13 +72,3 @@ promptButton.addEventListener("click", generateStory);
 //     }
 // }
 // promptButton.addEventListener('click',chatgptprompt);
-
-
-
-
-
-
-
-
-
-

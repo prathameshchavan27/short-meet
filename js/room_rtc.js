@@ -178,6 +178,31 @@ let toggleScreen = async (e) => {
 let leaveStream = async (e) => {
     e.preventDefault();
     // window.close();
+    let participants = await channel.getMembers();
+    console.log("participants****->>>>>>>>>",participants);
+    let roomDetails = JSON.parse(sessionStorage.getItem('room'));
+    
+    console.log(roomDetails);
+    if(participants.length==1){
+        var apiUrl = `https://short-meet-server.onrender.com/room/${roomDetails.roomId}`;
+
+        // Use fetch to send a DELETE request to the API
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Add any other headers if needed, such as authorization tokens
+                }
+            });
+            console.log(response);
+            sessionStorage.clear();
+            window.location = `home.html`;
+        } catch (error) {
+            console.log(error);
+        }
+       
+    }
     document.getElementsByClassName('stream__actions')[0].style.display = 'none';
     for(let i=0;i<localTracks.length;i++){
         localTracks[i].stop();
@@ -199,9 +224,27 @@ let leaveStream = async (e) => {
     window.location = `home.html`
 }
 
+const invite = () => {
+    var subject= "Invite to join meeting";
+    var body = "Join with credentials, roomId:  ";
+    body += roomId;
+    body += " password: "
+    let room = JSON.parse(sessionStorage.getItem('room'));
+    console.log(room);
+    body += room.password
+    // body += window.location.href;
+    // body += ">";
+    var uri = "mailto:?subject=";
+    uri += encodeURIComponent(subject);
+    uri += "&body=";
+    uri += encodeURIComponent(body);
+    window.open(uri);
+}
+
 document.getElementById('mic-btn').addEventListener('click',toggleMic)
 document.getElementById('camera-btn').addEventListener('click',toggleCamera)
 document.getElementById('screen-btn').addEventListener('click',toggleScreen)
 document.getElementById('leave-btn').addEventListener('click',leaveStream)
+document.getElementById('invite').addEventListener('click',invite)
 
 joinRoomInit();

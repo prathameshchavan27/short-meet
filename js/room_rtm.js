@@ -2,6 +2,7 @@ let handleMemberJoined = async (MemberId) => {
     console.log(MemberId," has joined the room!")
     addMemberToDom(MemberId)
     let members = await channel.getMembers();
+    console.log("participants****->>>>>>>>>",members)
     updateMemberTotal(members);
     let {name} = await rtmClient.getUserAttributesByKeys(MemberId,['name'])
     addBotMessageToDom(`${name} joined the room! 👋`)
